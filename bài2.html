@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clock</title>
+    <style>
+        body{
+            background-image:url('tải xuống.jpg');
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+        h1 {
+            padding-top: 100px;
+            font-size: 35px;
+            text-align: center;
+            color:rgb(238, 141, 206);
+            animation: colorchange 5s infinite;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+            font-family: 'Pacifico', cursive;
+        }
+        table {
+            margin: auto;
+            width: 400px;
+            height: max-content;
+        }
+        td, th {
+            background-color: rgb(238, 83, 142);
+            padding: 10px;
+            width: max-content;
+            padding-left: 70px;
+            border-radius: 30px;
+        }
+        #batdau, #reset {
+            padding-left: 170px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Đồng hồ báo thức</h1>
+    <table>
+        <tr>
+            <td>Phút:</td>
+            <td><input type='number' placeholder='Nhập Phút' id='phut' min="0" max="60"></td>
+        </tr>
+        <tr>
+            <td>Giây:</td>
+            <td><input type='number' placeholder='Nhập Giây' id ='giay' min='0' max='60'></td>
+        </tr>
+        <tr>
+            <td colspan="2" id="batdau"><button onclick="startCountdown()">START</button></td>
+        </tr>
+        <tr>
+            <td colspan="2" id="reset"><button onclick="resetInput()">RESET</button></td>
+        </tr>
+    </table>
+    <audio id="alarm" src="Coi-bao-thuc-trong-quan-doi-Ken.mp3"></audio>
+    <script>
+        function resetInput() {
+            document.getElementById("phut").value = '';
+            document.getElementById("giay").value = '';
+        }
+        
+        function startCountdown() {
+            var x = parseInt(document.getElementById('phut').value);
+            var y = parseInt(document.getElementById('giay').value);
+            if (isNaN(x) || isNaN(y) || x > 60 || y > 60 || x < 0 || y < 0) {
+                alert("Vui lòng nhập số nguyên trong khoảng 0-60");
+                resetInput();
+                return;
+            }
+            let t = x * 60 + y;
+            let countdown = setInterval(function() {
+                const min = Math.floor(t / 60);
+                const sec = t % 60;
+                document.getElementById("phut").value = min.toString().padStart(2, "0");
+                document.getElementById("giay").value = sec.toString().padStart(2, "0");
+                
+                if (t <= 0) {
+                    clearInterval(countdown);
+                    document.getElementById("alarm").play();
+                    alert("Hết giờ");
+                } else {
+                    t--;
+                }
+            }, 1000);
+        }
+    </script>
+</body>
+</html>

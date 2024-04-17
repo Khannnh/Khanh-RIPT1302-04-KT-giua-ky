@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Calculator</title>
+    <style>
+        body{
+            background-color: rgb(247, 231, 211);
+        }
+        h1 {
+            text-align: center;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 30px;
+            padding-top: 70px;
+            color: rgb(146, 34, 34);
+        }
+        table {
+            margin: auto;
+            width: auto;
+            height: auto;
+            
+        }
+        td, th {
+            padding: 15px;
+            border-radius: 10px;
+            background-color: coral;
+            text-align: center; /* Center text for better alignment */
+        }
+        #reset {
+            font-size: larger;
+            color: blue;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+    </style>
+</head>
+<body>
+    <h1><b>Simple Calculator</b></h1>
+    <table>
+        <tr>
+            <th>Num a:</th>
+            <td><input type="text" id="numA" autofocus placeholder="Enter num a"></td>
+        </tr>
+        <tr>
+            <th>Num b:</th>
+            <td><input type="text" id="numB" placeholder="Enter num b"></td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <button onclick="calculate('add')">SUM</button>
+                <button onclick="calculate('subtract')">SUBTRACT</button>
+                <button onclick="calculate('multiply')">MULTIPLY</button>
+                <button onclick="calculate('divide')">DIVIDE</button>
+                <button id="reset" onclick="resetInput()">RESET</button>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" id="ketqua">RESULT :</td>
+        </tr>
+    </table>
+    <script>
+        function calculate(operation) {
+            var x = document.getElementById("numA").value;
+            var y = document.getElementById("numB").value;
+            if (isNaN(x) || isNaN(y)) {
+                alert("Vui lòng nhập đúng định dạng số!");
+                return;
+            }
+            var k = 0;
+            switch(operation) {
+                case 'add':
+                    k = parseFloat(x) + parseFloat(y);
+                    break;
+                case 'subtract':
+                    k = parseFloat(x) - parseFloat(y);
+                    break;
+                case 'multiply':
+                    k = parseFloat(x) * parseFloat(y);
+                    break;
+                case 'divide':
+                    if (parseFloat(y) === 0) {
+                        alert("Không thể chia cho 0");
+                        return;
+                    } else {
+                        k = parseFloat(x) / parseFloat(y);
+                    }
+                    break;
+            }
+            document.getElementById("ketqua").textContent = 'RESULT: ' + k;
+        }
+
+        function resetInput() {
+            document.getElementById("ketqua").textContent = "RESULT :";
+            document.getElementById("numA").value = '';
+            document.getElementById("numB").value = '';
+        }
+    </script>
+</body>
+</html>
